@@ -1,7 +1,7 @@
 #pragma once
 
 void left_side_3ring();
-void disruptWP();
+void goal_rush_red();
 void safe3Ball();
 void sixBallRush();
 void FiveBall();

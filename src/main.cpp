@@ -2,6 +2,9 @@
 #include "main.h"
 #include "lemlib/api.hpp" // IWYU pragma: keep
 #include "lemlib/chassis/trackingWheel.hpp"
+#include "pros/abstract_motor.hpp"
+#include "pros/motors.h"
+#include "autons.h"
 
 
 
@@ -14,6 +17,9 @@
 void initialize() {
     pros::lcd::initialize(); // initialize brain screen
     chassis.calibrate(); // calibrate sensors
+    imu.is_calibrating();
+    
+    
 
     // the default rate is 50. however, if you need to change the rate, you
     // can do the following.
@@ -58,7 +64,7 @@ ASSET(example_txt); // '.' replaced with "_" to make c++ happy
  * This is an example autonomous routine which demonstrates a lot of the features LemLib has to offer
  */
 void autonomous() {
-    
+    goal_rush_red();
 
 }
 
@@ -75,7 +81,7 @@ void opcontrol() {
         // move the chassis with curvature drive
         chassis.arcade(leftY, rightX);
         // delay to save resources
-        pros::delay(10);
+    
 
 
 		
@@ -85,20 +91,25 @@ void opcontrol() {
             mogo_clamp.set_value(hi);
         }
 		
-        if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
+        if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
             lift.move(127);
-        } else if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
-            lift.move(0);
+        } else if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
+            lift.move(-127);
+        } else {
+           lift.set_brake_mode(pros::MotorBrake::brake);
+           lift.brake();
 
         }
 
-        if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){
+        if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)){
             intake.move(-127);
-        } else if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_R2)){
+        } else if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){
             intake.move(127);
         } else {
             intake.move(0);
         }
+
+        pros::delay(10);
 
     }
 }

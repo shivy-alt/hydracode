@@ -93,8 +93,8 @@ inline pros::adi::DigitalOut mogo_clamp(8);
 inline pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
 // motor groups
-inline pros::MotorGroup leftMotors({-11, 1, -10},pros::MotorGearset::blue); // left motor group - ports 3 (reversed), 4, 5 (reversed)
-inline pros::MotorGroup rightMotors({17, -11, 5}, pros::MotorGearset::blue); // right motor group - ports 6, 7, 9 (reversed)
+inline pros::MotorGroup leftMotors({-18, -1, -10},pros::MotorGearset::blue); // left motor group - ports 3 (reversed), 4, 5 (reversed)
+inline pros::MotorGroup rightMotors({17, 11, 5}, pros::MotorGearset::blue); // right motor group - ports 6, 7, 9 (reversed)
 
 inline pros::Imu imu(2);
 
@@ -142,11 +142,11 @@ inline lemlib::ControllerSettings angularController(2, // proportional gain (kP)
 );
 
 // sensors for odometry
-inline lemlib::OdomSensors sensors(&vertical, // vertical tracking wheel
+inline lemlib::OdomSensors sensors(nullptr, // vertical tracking wheel
                             nullptr, // vertical tracking wheel 2, set to nullptr as we don't have a second one
-                            &horizontal, // horizontal tracking wheel
+                            nullptr, // horizontal tracking wheel
                             nullptr, // horizontal tracking wheel 2, set to nullptr as we don't have a second one
-                            &imu // inertial sensor
+                                &imu // inertial sensor
 );
 
 // input curve for throttle input during driver control
@@ -163,4 +163,6 @@ inline lemlib::ExpoDriveCurve steerCurve(3, // joystick deadband out of 127
 
 // create the chassis
 inline lemlib::Chassis chassis(drivetrain, linearController, angularController, sensors, &throttleCurve, &steerCurve);
+
+
 

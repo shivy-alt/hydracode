@@ -15,7 +15,7 @@ void intakes(){
 
 
 
-/*void left_side_3ring(){
+void left_side_3ring(){
     //going to clamp mogo
     chassis.moveToPoint(29.454,24.037,400);
     mogo_clamp.set_value(true);
@@ -33,9 +33,24 @@ void intakes(){
     
 }
 
-void goal_rush(){
-    chassis.moveToPoint(75.589,61.055,1000);
+void goal_rush_red(){
+    chassis.setPose(0,0,0);
+    mogo_clamp.set_value(false);
+   
+    chassis.moveToPose(0,-30,0,2500,{.forwards=false,});
+    pros::delay(1200);
     mogo_clamp.set_value(true);
-    chassis.turnToHeading(190,500);
-    chassis.moveToPoint(64.719,6.708,1000);
-}*/
+    pros::delay(500);
+    intake.move(-127);
+    pros::delay(1000);
+    
+
+    
+}
+void goal_rush_blue(){
+    
+}
+
+
+
+
